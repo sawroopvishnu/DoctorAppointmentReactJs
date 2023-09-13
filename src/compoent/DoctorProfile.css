@@ -1,0 +1,20 @@
+.profile-form label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.profile-form button {
+  width: 100%;
+  padding: 10px;
+}

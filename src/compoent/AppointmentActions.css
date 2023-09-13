@@ -1,0 +1,16 @@
+.appointment-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.appointment-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.appointment-actions button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

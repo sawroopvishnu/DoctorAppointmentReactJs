@@ -1,0 +1,61 @@
+/* PatientDashboard.css */
+
+/* Style for the patient-dashboard container */
+.patient-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Style for the navigation links */
+.patient-dashboard nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.patient-dashboard nav li {
+  font-size: 18px;
+}
+
+/* Style for the navigation links */
+.patient-dashboard nav a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.patient-dashboard nav a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+/* Style for the content area */
+.patient-dashboard .content {
+  max-width: 800px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+  .patient-dashboard nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .patient-dashboard nav li {
+    font-size: 16px;
+  }
+
+  .patient-dashboard .content {
+    max-width: 100%;
+  }
+}

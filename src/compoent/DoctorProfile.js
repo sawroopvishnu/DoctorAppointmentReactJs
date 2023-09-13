@@ -1,0 +1,52 @@
+import React, { useState } from 'react';
+
+const DoctorProfile = () => {
+  const [profile, setProfile] = useState({
+    fullName: 'Dr. John Doe',
+    specialization: 'Cardiology',
+    // Add more profile fields here
+  });
+
+  const handleProfileUpdate = (field, value) => {
+    setProfile({
+      ...profile,
+      [field]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Send updated profile data to the server
+    console.log('Updated profile:', profile);
+  };
+
+  return (
+    <div>
+      <h2>Doctor Profile</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Full Name:</label>
+          <input
+            type="text"
+            value={profile.fullName}
+            onChange={(e) => handleProfileUpdate('fullName', e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Specialization:</label>
+          <input
+            type="text"
+            value={profile.specialization}
+            onChange={(e) =>
+              handleProfileUpdate('specialization', e.target.value)
+            }
+          />
+        </div>
+        {/* Add more profile fields here */}
+        <button type="submit">Save Profile</button>
+      </form>
+    </div>
+  );
+};
+
+export default DoctorProfile;

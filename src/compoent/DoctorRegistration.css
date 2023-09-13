@@ -1,0 +1,72 @@
+/* Doctor Registration Page Styles */
+.doctor-registration-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* Adjust for the height of the navbar */
+  padding: 20px;
+}
+
+/* Set a maximum height for the form container */
+.doctor-registration-form {
+  max-height: calc(100vh - 120px); /* Adjust for the height of the navbar and footer */
+  overflow-y: auto; /* Add vertical scrollbar when content overflows */
+  width: 90%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-registration-form h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-group p {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.form-group a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 600px) {
+  .doctor-registration-form {
+    max-width: 300px;
+  }
+}

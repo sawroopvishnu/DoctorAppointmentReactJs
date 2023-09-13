@@ -1,0 +1,27 @@
+/* UploadAppointments.css */
+
+.upload-appointments-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-appointments-form {
+  margin-top: 20px;
+}
+
+/* Add more styles for form elements as needed */
+
+/* Media queries for responsive design */
+
+@media screen and (max-width: 600px) {
+  .upload-appointments-container {
+    padding: 10px;
+  }
+
+  /* Add responsive styles for form elements */
+}
