@@ -12,7 +12,7 @@ function PatientDashboard() {
 
   useEffect(() => {
     // Fetch patient data from the backend
-    fetch('http://localhost:9096/api/auth/patient/login/1', {
+    fetch('http://localhost:9096/api/patients/find', {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer your-auth-token', // Replace with your authentication token
