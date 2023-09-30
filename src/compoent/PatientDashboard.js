@@ -7,23 +7,24 @@ import AppointmentStatus from './AppointmentStatus';
 import UploadAppointments from './UploadAppointments';
 
 function PatientDashboard() {
-  const [patientData, setPatientData] = useState(null);
-  const [patientUsername, setPatientUsername] = useState('');
+  const [patient, setPatient] = useState({});
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    // Fetch patient data from the backend
-    fetch('http://localhost:9096/api/patients/find', {
+    const authToken = 'secret'; 
+    const fetchUsername = localStorage.getItem("username"); 
+
+    fetch(`http://localhost:9096/api/patients/find/${fetchUsername}`, {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer your-auth-token', // Replace with your authentication token
+        'Authorization': authToken,
         'Content-Type': 'application/json',
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        setPatientData(data);
-        // Assuming 'username' is the field in the data that contains the username
-        setPatientUsername(data.username);
+        setPatient(data);
+        setUsername(data.username);
       })
       .catch((error) => {
         console.error('Error fetching patient data:', error);
@@ -34,23 +35,31 @@ function PatientDashboard() {
     <Router>
       <div className="patient-dashboard">
         <header>
+        <h1>Patient Dashboard</h1>
           <div className="username">
-            Patient Username: {patientUsername}
+            Patient Username: {username}
           </div>
+
+          <div>
+            
+            <p>Patient Name: {patient.fullName}</p>
+            {/* Add other patient details as needed */}
+          </div>
+
           <nav>
             <ul>
-             <li>
-              <Link to="/profile">Patient Profile</Link>
-            </li>
-            <li>
-              <Link to="/appointments">Appointment Status</Link>
-            </li>
-            <li>
-              <Link to="/createappointment">Create Appointment</Link>
-            </li>
-            <li>
-              <Link to="/upload-appointments">Upload Appointments</Link>
-            </li>
+              <li>
+                <Link to="/profile">Patient Profile</Link>
+              </li>
+              <li>
+                <Link to="/appointments">Appointment Status</Link>
+              </li>
+              <li>
+                <Link to="/createappointment">Create Appointment</Link>
+              </li>
+              <li>
+                <Link to="/upload-appointments">Upload Appointments</Link>
+              </li>
             </ul>
           </nav>
         </header>

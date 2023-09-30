@@ -17,7 +17,12 @@ const PatientLogin = () => {
         username,
         password,
       });
-      console.log('Login successful:', response.data);
+
+      console.log('Login successfully.......');
+      console.log(JSON.stringify(response.data));
+      console.log(response.data.data.username)
+      JSON.stringify(localStorage.setItem("username", response.data.data.username));
+      JSON.stringify(localStorage.setItem("id", response.data.data.id));
       alert('Patient Login successfully!');
       window.location.href = '/patientdashboard';
     } catch (error) {
@@ -42,8 +47,6 @@ const PatientLogin = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-          </div>
-          <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
               type="password"

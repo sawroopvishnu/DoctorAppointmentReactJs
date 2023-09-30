@@ -26,13 +26,6 @@ const CreateAppointment = () => {
       });
 
     // Fetch patients data and update the state
-    axios.get('http://localhost:9096/api/patients/getAllPatient')
-      .then(response => {
-        setPatient(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching patients:', error);
-      });
   }, []);
 
   const handlePatientChange = (event) => {
@@ -74,7 +67,7 @@ const CreateAppointment = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const formData = new FormData();
+/*      const formData = new FormData();
       formData.append('doctorId', selectedDoctor);
       formData.append('patientId', selectedPatient);
       formData.append('appointmentDateTime', `${selectedDate} ${selectedTime}`);
@@ -85,13 +78,32 @@ const CreateAppointment = () => {
       formData.append('notes', notes);
       // formData.append('patientReport', selectedReport);
       console.log("appointment creating" ,formData )
+      console.log(JSON.stringify(formData));*/
+
+      const id = localStorage.getItem("id"); 
+
+      const doctorObj = {
+            id : selectedDoctor,
+      };
+
+      const patientObj = {
+            id : id,
+      };
+
+       const formData = {
+      doctor: doctorObj,
+      patient: patientObj,
+      appointmentDateTime: `${selectedDate} ${selectedTime}`,
+      patientName: patientName,
+      age: age,
+      address: address,
+      contactNo: contactNo,
+      notes: notes,
+    };
+    console.log(JSON.stringify(formData));
       // Make API call to send formData to the backend API for appointment scheduling
       //const response = await axios.post('http://localhost:9096/api/appointments/createAppointment', formData);
-      const response = await axios.post('http://localhost:9096/api/appointments/createAppointment', formData, {
-      headers: {
-      'Content-Type': 'application/json',
-      },
-     });
+      const response = await axios.post('http://localhost:9096/api/appointments/createAppointment', formData);
     
       console.log('Appointment created:', response.data);
       alert('Appointment scheduled successfully!');
@@ -117,17 +129,7 @@ const CreateAppointment = () => {
             ))}
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="patient">Select Patient:</label>
-          <select id="patient" value={selectedPatient} onChange={handlePatientChange} required>
-            <option value="">Select a patient</option>
-            {patient.map((patient) => (
-              <option key={patient.id} value={patient.id}>
-                {patient.fullName}
-              </option>
-            ))}
-          </select>
-        </div>
+
         <div className="form-group">
           <label htmlFor="date">Select Date:</label>
           <input type="date" id="date" value={selectedDate} onChange={handleDateChange} required />

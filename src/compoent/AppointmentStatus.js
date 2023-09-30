@@ -8,7 +8,7 @@ function AppointmentStatus() {
 
   useEffect(() => {
     // Fetch appointment status data from your backend
-    axios.get('/api/appointments/status')
+    axios.get('http://localhost:9096/api/appointments/appointments/status/5')
       .then((response) => {
         setAppointments(response.data);
         setLoading(false);
@@ -29,7 +29,7 @@ function AppointmentStatus() {
           <ul>
             {appointments.map((appointment) => (
               <li key={appointment.id}>
-                <p>Appointment Date: {appointment.date}</p>
+                <p>Appointment Date: {appointment.appointmentDateTime}</p>
                 <p>Status: {appointment.status}</p>
                 {/* Add more appointment details */}
               </li>
