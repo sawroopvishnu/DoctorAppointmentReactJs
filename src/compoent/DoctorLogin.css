@@ -60,7 +60,6 @@
   text-decoration: none;
 }
 
-/* Media queries for responsive design */
 @media screen and (max-width: 600px) {
   .login-form {
     max-width: 300px;

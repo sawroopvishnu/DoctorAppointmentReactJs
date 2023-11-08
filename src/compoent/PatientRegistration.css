@@ -1,4 +1,4 @@
-/* Patient Registration Page Styles */
+
 .patient-registration-form-container {
   display: flex;
   justify-content: center;
@@ -61,7 +61,6 @@
   text-decoration: none;
 }
 
-/* Media queries for responsive design */
 @media screen and (max-width: 600px) {
   .patient-registration-form {
     max-width: 300px;

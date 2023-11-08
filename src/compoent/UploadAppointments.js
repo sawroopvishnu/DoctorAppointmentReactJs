@@ -1,49 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './UploadAppointments.css';
 import axios from 'axios';
+import { useAppointment } from './AppointmentContext';
 
 function UploadAppointments() {
-  const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { appointmentId } = useAppointment();
+  const [reportPath, setReportPath] = useState(null);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleReportPathChange = (event) => {
+    setReportPath(event.target.files[0]);
   };
 
-  const handleUpload = () => {
-    setLoading(true);
+  const handleReportUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', reportPath);
 
-    // Create a FormData object and append the file to it
-    const formData = new FormData();
-    formData.append('file', file);
+      const response = await axios.post(
+        `http://localhost:9096/api/appointments/${appointmentId}/upload-report`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
-    // Send the file to your backend for processing
-    axios.post('/api/upload', formData)
-      .then((response) => {
-        console.log('File uploaded successfully:', response.data);
-        setLoading(false);
-        // Add any success handling here
-      })
-      .catch((error) => {
-        console.error('Error uploading file:', error);
-        setLoading(false);
-        // Handle errors here
-      });
+      console.log('Report uploaded successfully:', response.data);
+      alert('Patient report uploaded successfully!');
+    } catch (error) {
+      console.error('Error uploading patient report:', error);
+      alert('Error uploading patient report. Please try again.');
+    }
   };
 
   return (
-    <div className="upload-appointments">
-      <h2>Upload Appointments</h2>
+    <div>
+      <h2>Report Upload for Appointment ID: {appointmentId}</h2>
       <div className="form-group">
-        <label htmlFor="file">Select File:</label>
+        <label htmlFor="reportPath">Upload Patient Report (PDF, Doc, etc.):</label>
         <input
           type="file"
-          id="file"
-          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-          onChange={handleFileChange}
+          id="reportPath"
+          accept=".pdf,.doc,.docx"
+          onChange={handleReportPathChange}
+          required
         />
+        <button type="button" onClick={handleReportUpload}>
+          Upload Report
+        </button>
       </div>
-      <button onClick={handleUpload} disabled={loading}>Upload File</button>
+      <Link to="/appointments">Back to Appointments</Link>
     </div>
   );
 }

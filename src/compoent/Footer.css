@@ -1,14 +1,30 @@
-/* Footer.css */
+
 .footer {
   background-color: #f0f0f0;
   padding: 20px;
   text-align: center;
-  position: relative;
-}
+  margin-bottom: 0%;
+position: relative;
 
+/*
+background-color: #333; 
+  color: #fff; 
+  padding: 20px; 
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;*/
+
+ background-image: url('https://images.pexels.com/photos/5878512/pexels-photo-5878512.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover; 
+  background-position: center center; 
+  color: #fff; 
+}
 @media screen and (max-width: 768px) {
-  /* Adjust styles for smaller screens */
   .footer {
     padding: 10px;
+   /* margin-top: 100%;*/
   }
 }
+

@@ -17,8 +17,12 @@ const Doctorlogin= () => {
         username,
         password,
       });
-     console.log('Doctor Login successful:', response.data);
+      console.log('Login successfully.......');
+      console.log(JSON.stringify(response.data));
+      console.log(response.data.data.username)
       alert('Doctor Login successful');
+      JSON.stringify(localStorage.setItem("username", response.data.data.username));
+      JSON.stringify(localStorage.setItem("id", response.data.data.id));
       window.location.href = '/doctordashboard';
     } catch (error) {
       console.error('Error creating Doctor Login:', error);

@@ -27,7 +27,7 @@ const PatientLogin = () => {
       window.location.href = '/patientdashboard';
     } catch (error) {
       console.error('Invalid credentials. Please try again:', error);
-      alert('An error occurred. Please try again later');
+      //alert('An error occurred. Please try again later');
     }
   };
 

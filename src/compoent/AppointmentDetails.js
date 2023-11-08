@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './AppointmentDetails.css';
+import axios from 'axios';
 
 const AppointmentDetails = ({ match }) => {
-  const [appointment, setAppointment] = useState(null);
+  const [appointment, setAppointment] = useState({});
 
   useEffect(() => {
-    // Fetch appointment details based on the appointment ID from the URL
-    const appointmentId = match.params.appointmentId;
-
-    axios.get(`http://localhost:9096/api/appointments/getAllAppointments${appointmentId}`)
-      .then(response => {
+    const appointmentId = match.params.id; // Get the appointment ID from the route parameter
+    axios
+      .get(`http://localhost:9096/api/appointments/${appointmentId}`) // Fetch appointment by ID
+      .then((response) => {
         setAppointment(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching appointment details:', error);
+      .catch((error) => {
+        console.error('Error fetching appointment:', error);
       });
-  }, [match.params.appointmentId]);
+  }, [match.params.id]);
 
-  if (!appointment) {
-    return <div>Loading...</div>;
-  }
+  const handleDownloadReport = () => {
+    // You can trigger the download of the report using this function
+    const downloadLink = document.createElement('a');
+    downloadLink.href = appointment.reportPath; // The URL of the report
+    downloadLink.download = 'patient_report.pdf'; // Set the desired filename
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   return (
     <div className="appointment-details-container">
@@ -29,10 +36,6 @@ const AppointmentDetails = ({ match }) => {
         <div>
           <h3>Patient Name</h3>
           <p>{appointment.patientName}</p>
-        </div>
-        <div>
-          <h3>Doctor Name</h3>
-          <p>{appointment.doctorName}</p>
         </div>
         <div>
           <h3>Appointment Date & Time</h3>
@@ -54,8 +57,13 @@ const AppointmentDetails = ({ match }) => {
           <h3>Notes</h3>
           <p>{appointment.notes}</p>
         </div>
-        {/* You can add more appointment details here */}
+        <div>
+          <h3>PatientReport</h3>
+          <p>PatientReport: {appointment.reportPath}</p>
+          <button onClick={handleDownloadReport}>Download Report</button>
+        </div>
       </div>
+      <Link to="/appointmentlist">Back to Appointments</Link>
     </div>
   );
 };

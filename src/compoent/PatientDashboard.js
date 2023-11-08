@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import './PatientDashboard.css';
 import CreateAppointment from './CreateAppointment';
 import PatientProfile from './PatientProfile';
 import AppointmentStatus from './AppointmentStatus';
-import UploadAppointments from './UploadAppointments';
+import UploadAppointments from './UploadAppointments'; // Rename the component
+import LogoutButton from './LogoutButton';
 
 function PatientDashboard() {
   const [patient, setPatient] = useState({});
   const [username, setUsername] = useState('');
+  const history = useHistory(); // Initialize the history object
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    history.push('/patientlogin'); // Use history to redirect
+  };
 
   useEffect(() => {
-    const authToken = 'secret'; 
-    const fetchUsername = localStorage.getItem("username"); 
+    const authToken = 'secret';
+    const fetchUsername = localStorage.getItem('username');
 
     fetch(`http://localhost:9096/api/patients/find/${fetchUsername}`, {
       method: 'GET',
@@ -35,13 +42,10 @@ function PatientDashboard() {
     <Router>
       <div className="patient-dashboard">
         <header>
-        <h1>Patient Dashboard</h1>
-          <div className="username">
-            Patient Username: {username}
-          </div>
+          <h1>Patient Dashboard</h1>
+          <div className="username">Patient Username: {username}</div>
 
           <div>
-            
             <p>Patient Name: {patient.fullName}</p>
             {/* Add other patient details as needed */}
           </div>
@@ -59,6 +63,9 @@ function PatientDashboard() {
               </li>
               <li>
                 <Link to="/upload-appointments">Upload Appointments</Link>
+              </li>
+              <li>
+                <LogoutButton onLogout={handleLogout} />
               </li>
             </ul>
           </nav>

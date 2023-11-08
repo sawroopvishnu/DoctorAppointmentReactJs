@@ -2,3 +2,13 @@
 .appointment-list {
   margin-top: 20px;
 }
+
+.appointment-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.view-button {
+  margin: 10px;
+}

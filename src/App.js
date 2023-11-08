@@ -5,14 +5,17 @@ import Navbar from "./compoent/Navbar"
 import PatientDashboard from "./compoent/PatientDashboard"
 import DoctorDashboard from "./compoent/DoctorDashboard"
 import Home from "./compoent/Home"
-import Doctors from "./compoent/Doctors"
-import CreateAppointment from "./compoent/CreateAppointment"
+import About from "./compoent/About"
+//import CreateAppointment from "./compoent/CreateAppointment"
 import Contact from "./compoent/Contact"
 import Services from "./compoent/Services"
 import Doctorlogin from "./compoent/Doctorlogin"
 import DoctorRegister from "./compoent/DoctorRegister"
 import PatientLogin from "./compoent/PatientLogin"
 import PatientRegister from "./compoent/PatientRegister"
+// import CreateAppointment from './compoent/CreateAppointment'; // Your existing component
+// import UploadAppointments from './compoent/UploadAppointments'; // Your report upload component
+
 import Footer from "./compoent/Footer"
 
 function App() {
@@ -24,11 +27,8 @@ function App() {
           <Route path='/' compoent={Home} exact>
             <Home />
           </Route>
-          <Route path='/doctors' compoent={Doctors} exact>
-            <Doctors />
-          </Route>
-          <Route path='/createappointment' compoent={CreateAppointment} exact>
-            <CreateAppointment />
+          <Route path='/about' compoent={About} exact>
+            <About />
           </Route>
           <Route path='/contact' compoent={Contact} exact>
             <Contact />
@@ -54,11 +54,17 @@ function App() {
             <Route path='/doctordashboard' compoent={DoctorDashboard} exact>
             <DoctorDashboard />
             </Route>
+            
         </Switch>
         <Footer />
       </Router>
     </>
   )
-}
-
+}      
 export default App
+// <Route path='/patientdashboard/create-appointment' compoent={CreateAppointment} exact>
+//             <DoctorDashboard />
+//             </Route>
+//             <Route path='/patientdashboard/upload-appointments/:appointmentId' compoent={UploadAppointments} exact>
+//             <DoctorDashboard />
+//             </Route>

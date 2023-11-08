@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { AppointmentProvider } from './compoent/AppointmentContext'; // Import the context provider
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
+    <AppointmentProvider>
       <App />
+      </AppointmentProvider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById("root")

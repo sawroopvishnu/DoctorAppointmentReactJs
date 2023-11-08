@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AppointmentCard = ({ appointment }) => {
+
+const AppointmentCard = ({ appointment, onAccept, onReject }) => {
   return (
-    <div>
-    <h1>AppointmentCard </h1>
-      <h3>{appointment.patientName}</h3>
-      <p>Date: {appointment.date}</p>
-      <p>Time: {appointment.time}</p>
+    <div className="card">
+      <h1>Appointment Card</h1>
+      <h3>Patient Name: {appointment.patientName}</h3>
+      <p>Appointment Date & Time: {appointment.appointmentDateTime}</p>
       <p>Status: {appointment.status}</p>
-      {/* Add buttons to accept or reject the appointment */}
+      <button onClick={onAccept}>Accept</button> {/* Add an accept button */}
+      <button onClick={onReject}>Reject</button> {/* Add a reject button */}
     </div>
   );
 };

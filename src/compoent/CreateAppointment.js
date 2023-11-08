@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AppointmentForm.css';
+import { useHistory } from 'react-router-dom'; // Import useHistory
+import { useAppointment } from './AppointmentContext';//first chnage
 
 const CreateAppointment = () => {
   const [doctor, setDoctor] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState('');
-  const [patient, setPatient] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [patientName, setPatientName] = useState('');
@@ -14,9 +14,10 @@ const CreateAppointment = () => {
   const [address, setAddress] = useState('');
   const [contactNo, setContactNo] = useState('');
   const [notes, setNotes] = useState('');
+  //const [appointmentId, setAppointmentId] = useState(null);
+  const { setAppointmentId } = useAppointment();
 
   useEffect(() => {
-    // Fetch doctors data and update the state
     axios.get('http://localhost:9096/api/doctors/getalldoctor')
       .then(response => {
         setDoctor(response.data);
@@ -24,13 +25,9 @@ const CreateAppointment = () => {
       .catch(error => {
         console.error('Error fetching doctors:', error);
       });
-
-    // Fetch patients data and update the state
   }, []);
 
-  const handlePatientChange = (event) => {
-    setSelectedPatient(event.target.value);
-  };
+  const history = useHistory(); // Initialize the history object
 
   const handleDoctorChange = (event) => {
     setSelectedDoctor(event.target.value);
@@ -67,53 +64,41 @@ const CreateAppointment = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-/*      const formData = new FormData();
-      formData.append('doctorId', selectedDoctor);
-      formData.append('patientId', selectedPatient);
-      formData.append('appointmentDateTime', `${selectedDate} ${selectedTime}`);
-      formData.append('patientName', patientName);
-      formData.append('age', age);
-      formData.append('address', address);
-      formData.append('contactNo', contactNo);
-      formData.append('notes', notes);
-      // formData.append('patientReport', selectedReport);
-      console.log("appointment creating" ,formData )
-      console.log(JSON.stringify(formData));*/
-
-      const id = localStorage.getItem("id"); 
-
+      const id = localStorage.getItem('id');
       const doctorObj = {
-            id : selectedDoctor,
+        id: selectedDoctor,
       };
 
       const patientObj = {
-            id : id,
+        id: id,
       };
 
-       const formData = {
-      doctor: doctorObj,
-      patient: patientObj,
-      appointmentDateTime: `${selectedDate} ${selectedTime}`,
-      patientName: patientName,
-      age: age,
-      address: address,
-      contactNo: contactNo,
-      notes: notes,
-    };
-    console.log(JSON.stringify(formData));
-      // Make API call to send formData to the backend API for appointment scheduling
-      //const response = await axios.post('http://localhost:9096/api/appointments/createAppointment', formData);
+      const formData = {
+        doctor: doctorObj,
+        patient: patientObj,
+        appointmentDateTime: `${selectedDate} ${selectedTime}`,
+        patientName: patientName,
+        age: age,
+        address: address,
+        contactNo: contactNo,
+        notes: notes,
+      };
+
       const response = await axios.post('http://localhost:9096/api/appointments/createAppointment', formData);
-    
+
+      setAppointmentId(response.data.id);
+
       console.log('Appointment created:', response.data);
       alert('Appointment scheduled successfully!');
-      window.location.href = '/patientlogin';
+
+      // Redirect to the report upload page with the newly created appointment ID
+      history.push(`/upload-appointments`);
+       //window.location.href = '/upload-appointments';
     } catch (error) {
       console.error('Error creating appointment:', error);
       alert('Error creating appointment. Please try again.');
     }
   };
-
   return (
     <div className="appointment-form-container">
       <h2>Schedule an Appointment</h2>
@@ -122,9 +107,9 @@ const CreateAppointment = () => {
           <label htmlFor="doctor">Select Doctor:</label>
           <select id="doctor" value={selectedDoctor} onChange={handleDoctorChange} required>
             <option value="">Select a doctor</option>
-            {doctor.map((doctor) => (
-              <option key={doctor.id} value={doctor.id}>
-                {doctor.fullName}
+            {doctor.map((doc) => (
+              <option key={doc.id} value={doc.id}>
+                {doc.fullName}
               </option>
             ))}
           </select>

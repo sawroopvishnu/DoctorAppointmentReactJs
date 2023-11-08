@@ -1,4 +1,4 @@
-/* PatientProfile.css */
+
 
 .patient-profile-container {
   max-width: 600px;
@@ -14,14 +14,10 @@
   margin-top: 20px;
 }
 
-/* Add more styles for form elements as needed */
-
-/* Media queries for responsive design */
 
 @media screen and (max-width: 600px) {
   .patient-profile-container {
     padding: 10px;
   }
 
-  /* Add responsive styles for form elements */
 }
